@@ -13,8 +13,8 @@ foreach($Hostpool in $Hostpools) {
     $sessionhosts = Get-AzWvdSessionHost -HostPoolName $Hostpool.Name -ResourceGroupName $HostpoolRg
 
     foreach($sessionhost in $sessionhosts) {
-        $sessionhostName = $sessionhost.Name.Split("/")[1]
-        $sessionhostRg = $sessionhost.Name.Split("/")[0]
+        $sessionhostName = $sessionhost.ResourceId.Split("/")[8]
+        $sessionhostRg = $sessionhost.ResourceId.Split("/")[4]
         
         if($sessionhost.Status -eq "Available" -and $sessionhost.AllowNewSession -eq $true) {
             Write-Output "Processing VM $($sessionhostName)"
